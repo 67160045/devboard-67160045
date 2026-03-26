@@ -4,10 +4,16 @@ import PostCount from "./PostCount";
 function PostList({ posts, favorites, onToggleFavorite }) {
   const [search, setSearch] = useState("");
 
+  const [sortOrder, setSortOrder] = useState("desc");
+
   // กรองโพสต์ตาม search
   const filtered = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const sorted = [...filtered].sort((a, b) => {
+    return sortOrder === "desc" ? b.id - a.id : a.id - b.id;
+  });
 
   return (
     <div>
@@ -21,6 +27,17 @@ function PostList({ posts, favorites, onToggleFavorite }) {
         โพสต์ล่าสุด
         <PostCount count={posts.length} />
       </h2>
+
+      <button
+        onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
+        style={{
+          marginBottom: "1rem",
+          padding: "0.3rem 0.75rem",
+          cursor: "pointer",
+        }}
+      >
+        {sortOrder === "desc" ? "🔽 ใหม่สุดก่อน" : "🔼 เก่าสุดก่อน"}
+      </button>
 
       {/* Search Input */}
       <input
@@ -47,7 +64,7 @@ function PostList({ posts, favorites, onToggleFavorite }) {
       )}
 
       {/* แสดงรายการโพสต์ */}
-      {filtered.map((post) => (
+      {sorted.map((post) => (
         <PostCard
           key={post.id}
           title={post.title}
@@ -61,4 +78,3 @@ function PostList({ posts, favorites, onToggleFavorite }) {
 }
 
 export default PostList;
-
