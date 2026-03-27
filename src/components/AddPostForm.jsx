@@ -1,19 +1,29 @@
 import { useState } from "react";
 
 function AddPostForm({ onAddPost }) {
+  // เก็บค่าชื่อเรื่อง
   const [title, setTitle] = useState("");
+
+  // เก็บเนื้อหาของโพสต์
   const [body, setBody] = useState("");
 
-  
-const remaining = 100 - title.length;
+  // คำนวณจำนวนตัวอักษรที่เหลือของ title
+  const remaining = 100 - title.length;
+
+  // เปลี่ยนสีตัวนับเป็นแดงเมื่อใกล้ถึงลิมิต
   const counterColor = remaining < 10 ? "red" : "#718096";
 
+  // จัดการตอนกดปุ่มโพสต์
   function handleSubmit(e) {
-    e.preventDefault();
-    if (!title.trim() || !body.trim()) return; // ป้องกันส่งว่าง
+    e.preventDefault(); // กันหน้ารีเฟรช
 
+    // ถ้าชื่อเรื่องหรือเนื้อหาว่าง ห้ามส่ง
+    if (!title.trim() || !body.trim()) return;
+
+    // ส่งข้อมูลขึ้นไปให้ component แม่
     onAddPost({ title, body });
-    setTitle(""); // เคลียร์ form
+
+    setTitle("");
     setBody("");
   }
 
@@ -37,7 +47,7 @@ const remaining = 100 - title.length;
         placeholder="หัวข้อโพสต์"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        maxLength={100}
+        maxLength={100} // จำกัด 100 ตัวอักษร
         style={{
           width: "100%",
           padding: "0.5rem",
@@ -48,7 +58,8 @@ const remaining = 100 - title.length;
           boxSizing: "border-box",
         }}
       />
-      
+
+      {/* ตัวนับจำนวนอักษรที่เหลือของหัวข้อ */}
       <div
         style={{
           textAlign: "right",
@@ -59,7 +70,7 @@ const remaining = 100 - title.length;
         {title.length}/100
       </div>
 
-
+      {/* ช่องใส่เนื้อหาโพสต์ */}
       <textarea
         placeholder="เนื้อหาโพสต์"
         value={body}
@@ -77,6 +88,7 @@ const remaining = 100 - title.length;
         }}
       />
 
+      {/* ปุ่มโพสต์ */}
       <button
         type="submit"
         style={{
