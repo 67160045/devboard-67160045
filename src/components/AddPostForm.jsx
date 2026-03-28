@@ -1,30 +1,20 @@
 import { useState } from "react";
 
 function AddPostForm({ onAddPost }) {
-  // เก็บค่าชื่อเรื่อง
   const [title, setTitle] = useState("");
-
-  // เก็บเนื้อหาของโพสต์
   const [body, setBody] = useState("");
-
-  // คำนวณจำนวนตัวอักษรที่เหลือของ title
   const remaining = 100 - title.length;
-
-  // เปลี่ยนสีตัวนับเป็นแดงเมื่อใกล้ถึงลิมิต
   const counterColor = remaining < 10 ? "red" : "#718096";
 
-  // จัดการตอนกดปุ่มโพสต์
+  
   function handleSubmit(e) {
-    e.preventDefault(); // กันหน้ารีเฟรช
+    e.preventDefault(); 
 
     // ถ้าชื่อเรื่องหรือเนื้อหาว่าง ห้ามส่ง
     if (!title.trim() || !body.trim()) return;
-
-    // ส่งข้อมูลขึ้นไปให้ component แม่
     onAddPost({ title, body });
-
     setTitle("");
-    setBody("");
+    setBody("")
   }
 
   return (

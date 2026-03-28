@@ -5,23 +5,17 @@ import LoadingSpinner from "./LoadingSpinner";
 import { useFavorites } from "../context/FavoritesContext";
 
 function PostList() {
-
-  // ใช้ FavoritesContext เพื่อดึงรายการโพสต์ที่ถูกใจ
   const { favorites } = useFavorites();
-  // ตัวแปรเก็บข้อมูลโพสต์จาก API
   const [posts, setPosts] = useState([]);
-  // สถานะโหลดข้อมูล (true = กำลังโหลด)
   const [loading, setLoading] = useState(true);
-  // เก็บข้อความ error ถ้าดึงข้อมูลไม่สำเร็จ
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
 
-  // ใช้กำหนดว่าจะเรียงโพสต์แบบใหม่สุดหรือเก่าสุด
+  
   const [sortOrder, setSortOrder] = useState("Newest");
   const [currentPage, setCurrentPage] = useState(1);
-  const PER_PAGE = 10; // จำนวนโพสต์ต่อหน้า
+  const PER_PAGE = 10; 
 
-  // ฟังก์ชันโหลดข้อมูลโพสต์จาก API
   async function fetchPosts() {
     try {
       setLoading(true);  
@@ -35,11 +29,10 @@ function PostList() {
 
       // เอาโพสต์มาแค่ 20 รายการ
       setPosts(data.slice(0, 20));
-
     } catch (err) {
       setError(err.message);  // หากเกิด error ให้เก็บข้อความไว้
     } finally {
-      setLoading(false);  // โหลดเสร็จแล้ว
+      setLoading(false); 
     }
   }
 
@@ -74,8 +67,6 @@ function PostList() {
 
   return (
     <div>
-
-      {/* ส่วนหัวของหน้า + ปุ่มโหลดใหม่ */}
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h2 style={{ color: "#ffffff", borderBottom: "2px solid #1e40af" }}>
           โพสต์ล่าสุด
