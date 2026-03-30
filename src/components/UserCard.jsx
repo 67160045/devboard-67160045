@@ -1,53 +1,46 @@
 function UserCard({ name, email }) {
-  // ดึงตัวอักษรแรกมาทำ avatar
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .join("");
+  // เอาตัวอักษรแรกของชื่อ และแปลงเป็นตัวพิมพ์ใหญ่
+  const firstChar = name.charAt(0).toUpperCase();
 
-const firstLetter = name[0].toUpperCase();
-  let bg = "#3b82f6";
+  // กำหนดสีเริ่มต้น
+  let bgColor = "#3b82f6"; // น้ำเงิน
 
-  
-if (firstLetter >= "A" && firstLetter <= "G") bg = "#3b82f6"; 
-  else if (firstLetter >= "H" && firstLetter <= "N") bg = "#22c55e"; 
-  else bg = "#a855f7";
+  // เลือกสีตามช่วงตัวอักษร
+  if (firstChar >= "A" && firstChar <= "G") {
+    bgColor = "#3b82f6"; // น้ำเงิน
+  } else if (firstChar >= "H" && firstChar <= "N") {
+    bgColor = "#22c55e"; // เขียว
+  } else {
+    bgColor = "#a855f7"; // ม่วง
+  }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "1rem",
-        border: "1px solid #e2e8f0",
-        borderRadius: "8px",
-        padding: "0.75rem 1rem",
-        marginBottom: "0.75rem",
-        background: "white",
-      }}
-    >
+    <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+      {/* Avatar */}
       <div
         style={{
           width: "40px",
           height: "40px",
-          background: "#1e40af",
-          color: "white",
           borderRadius: "50%",
+          backgroundColor: bgColor,
+          color: "white",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontWeight: "bold",
-          fontSize: "0.9rem",
         }}
       >
-        {initials}
+        {firstChar}
       </div>
+
+      {/* ข้อมูลผู้ใช้ */}
       <div>
-        <div style={{ fontWeight: "bold", color: "#2d3748" }}>{name}</div>
-        <div style={{ fontSize: "0.85rem", color: "#718096" }}>{email}</div>
+        <p style={{ margin: 0 }}>{name}</p>
+        <small>{email}</small>
       </div>
     </div>
   );
 }
 
 export default UserCard;
+``
